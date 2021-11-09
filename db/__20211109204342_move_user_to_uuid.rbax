@@ -1,0 +1,11 @@
+class MoveUserToUuid < ActiveRecord::Migration[6.1]
+  def up
+    # add_column :users, :uuid, :uuid, default: "gen_random_uuid()", null: false
+    # rename_column :users, :id, :integer_id
+    # rename_column :users, :uuid, :id
+
+    # execute "ALTER TABLE ONLY users ALTER COLUMN integer_id DROP DEFAULT;"
+    # execute "DROP SEQUENCE IF EXISTS users_id_seq"
+    # remove_column :users, :integer_id
+  end
+end
