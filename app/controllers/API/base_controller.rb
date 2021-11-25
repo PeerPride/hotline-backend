@@ -1,18 +1,21 @@
-class API::BaseController < ApplicationController
+# frozen_string_literal: true
 
-  before_action :authenticate_user!
+module API
+  # Route API calls through here
+  class BaseController < ApplicationController
+    before_action :authenticate_user!
 
-  rescue_from ActiveRecord::RecordNotFound, with: :not_found
+    rescue_from ActiveRecord::RecordNotFound, with: :not_found
 
-  def not_found
-    render json: {
-      'errors': [
-        {
-          'status': '404',
-          'title': 'Not Found'
-        }
-      ]
-    }, status: 404
+    def not_found
+      render json: {
+        errors: [
+          {
+            status: '404',
+            title: 'Not Found'
+          }
+        ]
+      }, status: 404
+    end
   end
-
 end

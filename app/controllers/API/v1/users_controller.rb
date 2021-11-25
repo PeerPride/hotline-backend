@@ -1,9 +1,15 @@
-class API::V1::UsersController < API::BaseController
-  def index
-    render json: User.all 
-  end
+# frozen_string_literal: true
 
-  def show
-    render_jsonapi_response(User.find(params[:id]))
+module API
+  module V1
+    class UsersController < API::BaseController # :nodoc:
+      def index
+        render json: User.all
+      end
+
+      def show
+        render_jsonapi_response(User.find(params[:id]))
+      end
+    end
   end
 end

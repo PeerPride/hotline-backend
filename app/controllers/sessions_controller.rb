@@ -1,4 +1,6 @@
-class SessionsController < Devise::SessionsController
+# frozen_string_literal: true
+
+class SessionsController < Devise::SessionsController # :nodoc:
   respond_to :json
   def create
     super { |resource| @resource = resource }
@@ -13,5 +15,4 @@ class SessionsController < Devise::SessionsController
   def respond_to_on_destroy
     head :no_content
   end
-
 end

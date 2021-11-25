@@ -1,4 +1,6 @@
-class ApplicationController < ActionController::Base
+# frozen_string_literal: true
+
+class ApplicationController < ActionController::Base # :nodoc:
   respond_to :json
   skip_before_action :verify_authenticity_token
 
