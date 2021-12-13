@@ -7,11 +7,10 @@ module API
         systemStatus = []
 
         systemStatus[:telephonyClient] = !@telephonyClient.nil?
-        #TODO: If false, then dig into errors
+        # TODO: If false, then dig into errors
 
         render json: systemStatus
       end
-
     end
   end
 end

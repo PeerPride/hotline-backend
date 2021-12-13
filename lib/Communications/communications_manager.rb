@@ -3,7 +3,6 @@
 require 'singleton'
 
 module Communications
-
   class CommunicationsManager
     include Singleton
     # Controller model for voice/sms/mms/etc
@@ -12,11 +11,11 @@ module Communications
     def initialize
       @@communicationsProvider = nil
       begin
-        providerName = Setting.where(:name => 'Communications Provider').first.value
+        providerName = Setting.where(name: 'Communications Provider').first.value
         obj = "Communications::#{providerName}::#{providerName}Controller".constantize
         @@communicationsProvider = obj.new
       rescue NameError => e
-        raise InvalidCommsProviderException.new "Communications provider does not exist #{e}"
+        raise InvalidCommsProviderException, "Communications provider does not exist #{e}"
       end
     end
   end
@@ -24,5 +23,4 @@ module Communications
   def provider_object
     @communicationsProvider
   end
-
 end
