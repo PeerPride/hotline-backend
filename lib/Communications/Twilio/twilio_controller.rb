@@ -13,7 +13,7 @@ module Communications
       end
 
       def connect
-        configParams = Setting.where(name: 'Communications Provider Auth').first.value
+        configParams = Setting.where(name: 'Phone Provider Settings').first.value
         configParams = JSON.parse(configParams)
 
         @@client = ::Twilio::REST::Client.new configParams['api_key_sid'], configParams['api_key_secret'],

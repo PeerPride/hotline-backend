@@ -11,11 +11,11 @@ module Communications
     def initialize
       @@communicationsProvider = nil
       begin
-        providerName = Setting.where(name: 'Communications Provider').first.value
+        providerName = Setting.where(name: 'Phone Provider').first.value
         obj = "Communications::#{providerName}::#{providerName}Controller".constantize
         @@communicationsProvider = obj.new
       rescue NameError => e
-        raise InvalidCommsProviderException, "Communications provider does not exist #{e}"
+        raise InvalidCommsProviderException, "Phone provider does not exist #{e}"
       end
     end
   end
