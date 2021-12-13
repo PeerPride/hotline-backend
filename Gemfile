@@ -49,3 +49,5 @@ gem 'devise'
 gem 'devise-jwt'
 
 gem 'jsonapi-rails'
+
+gem 'twilio-ruby', '~> 5.61.2'
