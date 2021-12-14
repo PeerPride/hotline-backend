@@ -29,3 +29,6 @@ Things you may want to cover:
 * Docker commands
   - Start: docker-compose up --build
   - 
+
+Messing with JWT:
+curl -XPOST -i -H "Content-Type: application/json" -d '{ "user": { "email": "chris@peerpride.com", "password": "PASSWORD" }}' http://0.0.0.0:3000/api/login
