@@ -2,7 +2,6 @@
 
 class ApplicationController < ActionController::Base # :nodoc:
   respond_to :json
-  skip_before_action :verify_authenticity_token
 
   def render_jsonapi_response(resource)
     if resource.errors.empty?
