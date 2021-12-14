@@ -50,4 +50,6 @@ gem 'devise-jwt'
 
 gem 'jsonapi-rails'
 
+# Phone stuff
 gem 'twilio-ruby', '~> 5.61.2'
+
