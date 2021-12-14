@@ -18,9 +18,10 @@ module Communications
         raise InvalidCommsProviderException, "Phone provider does not exist #{e}"
       end
     end
+
+    def provider_object
+      @@communicationsProvider
+    end
   end
 
-  def provider_object
-    @communicationsProvider
-  end
 end
