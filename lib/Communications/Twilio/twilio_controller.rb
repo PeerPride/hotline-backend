@@ -16,14 +16,22 @@ module Communications
         configParams = Setting.where(name: 'Phone Provider Settings').first.value
         configParams = JSON.parse(configParams)
 
-        @@client = ::Twilio::REST::Client.new configParams['api_key_sid'], configParams['api_key_secret'],
-                                              configParams['account_sid']
+        @@client = ::Twilio::REST::Client.new configParams['account_sid'],
+                                              configParams['auth_token']
       end
 
       def test_connection
-        @@client.api.accounts.list(limit: 1)
-      rescue ::Twilio::REST::RestError => e
-        raise InvalidCommsProviderException, "Twilio provider could not connect #{e}"
+        begin
+          @@client.api.accounts.list(limit: 1)
+        rescue ::Twilio::REST::RestError => e
+          raise InvalidCommsProviderException, "Twilio provider could not connect #{e}"
+        end
+
+        true
+      end
+
+      def client
+        @@client
       end
     end
   end

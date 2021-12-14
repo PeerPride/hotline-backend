@@ -7,17 +7,17 @@ class Setting < ApplicationRecord
   validates :type_hint, presence: true, inclusion: { in: @@valid_type_hints }
 
   def name_as_env_var
-    name.downcase.gsub(/ /, '_').gsub(/[^0-9a-z_]/, '')
+    name.upcase.gsub(/ /, '_').gsub(/[^0-9A-Z_]/, '')
   end
 
   # Any database Setting can be overridden by an environment variable.
   # While setting in ENV vars is ideal, some folks won't have tech skill,
   # or the ability in some environments.
   def value
-    if ENV[self[:name]].nil?
+    if ENV[self.name_as_env_var].nil?
       self[:value]
     else
-      ENV[self[:name]]
+      ENV[self.name_as_env_var]
     end
   end
 

@@ -24,6 +24,6 @@ class SettingTest < ActiveSupport::TestCase
 
   test 'name_as_env_var removes non-alpha and converts spaces to underscores' do
     s1 = Setting.create(name: 'A 😀Setting 1 Name @ Here', value: 'Test')
-    assert s1.name_as_env_var == 'a_setting_1_name__here'
+    assert s1.name_as_env_var == 'A_SETTING_1_NAME__HERE'
   end
 end
