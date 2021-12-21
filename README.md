@@ -29,7 +29,7 @@ Things you may want to cover:
 
 * Docker commands
   - Start: docker-compose up --build
-  - 
+  - "FATAL:  the database system is starting up (PG::ConnectionBad)" - comment out all of `web` in docker-compose.yml. Bring up just db, then bring it down, then bring up web and db together.
 
 Messing with JWT:
 curl -XPOST -i -H "Content-Type: application/json" -d '{ "user": { "email": "chris@peerpride.com", "password": "PASSWORD" }}' http://0.0.0.0:3000/api/login
