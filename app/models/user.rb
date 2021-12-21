@@ -10,4 +10,6 @@ class User < ApplicationRecord
 
   validates :name, presence: true
   validates :email, uniqueness: true
+
+  has_many :lead_teams, :class_name => 'Team', :foreign_key => 'lead_id'
 end
