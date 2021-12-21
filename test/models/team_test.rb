@@ -28,5 +28,13 @@ class TeamTest < ActiveSupport::TestCase
     flunk
   end
 
+  test 'Teams with 0 members are not considered active' do
+    assert_not Team.where(:name => 'A Second Team').first.is_active?
+  end
+
+  test 'Teams with 1 or more members are considered active' do
+    assert Team.where(:name => 'Team 3!').first.is_active?
+  end
+
 
 end

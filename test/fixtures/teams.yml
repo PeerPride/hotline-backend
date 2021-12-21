@@ -2,15 +2,15 @@
 
 one:
   name: A First Team
-  description: This is the first team
+  description: Lead, no members.
   lead: one (User)
 
 two:
   name: A Second Team
-  description: Second one
-  lead: one (User)
+  description: No lead, no members
 
 three:
   name: Team 3!
-  description:
+  description: Lead and members
   lead: two (User)
+  users: one, four

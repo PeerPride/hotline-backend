@@ -12,4 +12,5 @@ class User < ApplicationRecord
   validates :email, uniqueness: true
 
   has_many :lead_teams, :class_name => 'Team', :foreign_key => 'lead_id'
+  has_and_belongs_to_many :teams
 end
