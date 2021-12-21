@@ -13,6 +13,7 @@ Things you may want to cover:
 * Configuration
 
 * Database creation
+  - When creating related fields, don't use t.belongs_to. Use t.uuid as belongs_to defaults to bigint and we use UUID
 
 * Database initialization
   - rails db:setup should cover everything. There are some seeds.
