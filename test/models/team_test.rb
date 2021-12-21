@@ -21,11 +21,14 @@ class TeamTest < ActiveSupport::TestCase
   end
 
   test 'Assigning a team member to lead removes from team members' do
-    flunk
-  end
+    t = Team.where(:name => "Team 3!").first
 
-  test 'Assigning a member to lead removes from members' do
-    flunk
+    #Team 3 lead is two, members are one and four
+    new_lead = User.where(:name => 'First User').first
+    t.lead = new_lead
+    t.save
+
+    assert_not t.members.include? new_lead
   end
 
   test 'Teams with 0 members are not considered active' do

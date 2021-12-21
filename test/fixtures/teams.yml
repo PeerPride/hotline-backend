@@ -13,4 +13,4 @@ three:
   name: Team 3!
   description: Lead and members
   lead: two (User)
-  users: one, four
+  members: one, four
