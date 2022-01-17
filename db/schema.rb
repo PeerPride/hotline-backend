@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_17_170454) do
+ActiveRecord::Schema.define(version: 2022_01_17_184615) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -32,6 +32,20 @@ ActiveRecord::Schema.define(version: 2022_01_17_170454) do
     t.string "codename"
     t.text "notes"
     t.boolean "blocked", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "conversations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "contact_id"
+    t.uuid "contactphone_id"
+    t.string "method"
+    t.text "notes"
+    t.string "provider_id"
+    t.integer "length"
+    t.datetime "started_at"
+    t.datetime "ended_at"
+    t.string "status", default: "Incoming"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

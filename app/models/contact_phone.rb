@@ -6,6 +6,8 @@ class ContactPhone < ApplicationRecord
 
   belongs_to :contact
 
+  has_many :conversations
+
   private
     def update_primary
       return if self.destroyed?

@@ -6,6 +6,7 @@ class Contact < ApplicationRecord
   before_validation :set_codename, on: [:create]
 
   has_many :contact_phones, dependent: :destroy
+  has_many :conversations
 
   def primary_phone
     self.contact_phones.where(:is_primary => true)

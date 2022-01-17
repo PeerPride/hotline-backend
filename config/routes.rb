@@ -28,6 +28,7 @@ Rails.application.routes.draw do
         end
       end
       resources :contactphones
+      resources :conversations
       get :status, to: 'status#index'
     end
   end
