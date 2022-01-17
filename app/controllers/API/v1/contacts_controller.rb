@@ -13,7 +13,7 @@ module API
 
       def update
         contact = Contact.find(params[:id])
-
+        contact.update!(permitted_params)
         render_jsonapi_response(contact)
       end
 
@@ -32,6 +32,11 @@ module API
 
         render_jsonapi_response(contact)
       end
+
+      private
+        def permitted_params
+          params.permit(:notes, :blocked)
+        end
     end
   end
 end
