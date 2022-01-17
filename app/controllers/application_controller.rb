@@ -5,7 +5,6 @@ class ApplicationController < ActionController::Base # :nodoc:
   skip_before_action :verify_authenticity_token, if: :json_request?
 
   def render_jsonapi_response(resource, include = [], fields = {})
-    puts fields
     if resource.errors.empty?
       render jsonapi: resource, include: include, fields: fields
     else
@@ -14,6 +13,6 @@ class ApplicationController < ActionController::Base # :nodoc:
   end
 
   def json_request?
-    request.format.json?
+    request.format.json? or (request.headers['Content-Type'] == 'application/json' and request.headers['Authorization'].present?)
   end
 end
