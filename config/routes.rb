@@ -27,6 +27,7 @@ Rails.application.routes.draw do
           patch :unblock
         end
       end
+      resources :contactphones
       get :status, to: 'status#index'
     end
   end

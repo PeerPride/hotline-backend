@@ -25,4 +25,28 @@ class ContactTest < ActiveSupport::TestCase
       c1.save!
     end
   end
+
+  test 'Deleting contact deletes all phones' do
+    c = Contact.new
+    c.save!
+    cp1 = ContactPhone.new
+    cp1.contact_id = c.id
+    cp1.phone = '+5555555555'
+    cp1.save!
+
+    c.destroy
+    assert_equal ContactPhone.where(:phone => '+5555555555').count, 0
+  end
+
+  test 'Assigning first ContactPhone sets it as primary' do
+    c = Contact.new
+    c.save!
+
+    cp1 = ContactPhone.new
+    cp1.contact_id = c.id
+    cp1.phone = 1
+    cp1.save!
+
+    assert cp1.is_primary?
+  end
 end
