@@ -21,6 +21,12 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :users
       resources :teams
+      resources :contacts do
+        member do 
+          patch :block
+          patch :unblock
+        end
+      end
       get :status, to: 'status#index'
     end
   end
