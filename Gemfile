@@ -55,3 +55,6 @@ gem 'twilio-ruby', '~> 5.61.2'
 
 # Access control
 gem 'pundit'
+
+# For Contact codenames
+gem 'random-word', '~> 1.3'
