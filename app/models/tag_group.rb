@@ -1,0 +1,2 @@
+class TagGroup < ApplicationRecord
+end

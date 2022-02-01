@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  conversationsubject_id: 
+  taginstance_id: 
+
+two:
+  conversationsubject_id: 
+  taginstance_id: 
