@@ -13,8 +13,8 @@ class ContactPhone < ApplicationRecord
       return if self.destroyed?
       self.contact.update_primary_phone
 
-      if cp1.contact_id_changed?
-        Contact.where(:id => cp1.contact_id_was).update_primary_phone
+      if self.contact_id_changed?
+        Contact.where(:id => self.contact_id_was).update_primary_phone
       end
 
       self.reload

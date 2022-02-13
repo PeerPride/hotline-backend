@@ -2,7 +2,7 @@
 
 module API
   module V1
-    class ContactPhonesController < API::BaseController # :nodoc:
+    class ContactphonesController < API::BaseController # :nodoc:
       def index
         render json: ContactPhone.all
       end
