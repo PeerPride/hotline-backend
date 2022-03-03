@@ -9,7 +9,7 @@ class TagCategoryTest < ActiveSupport::TestCase
     tc2 = TagCategory.new
     tc2.name = 'Category'
     assert_raises(ActiveRecord::RecordInvalid) do
-      cp2.save!
+      tc2.save!
     end
   end
 

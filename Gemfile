@@ -34,7 +34,7 @@ group :development, :test do
 end
 
 group :test do
-  gem 'factory_bot_rails'
+  gem 'factory_bot'
 end
 
 group :development do
