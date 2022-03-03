@@ -11,6 +11,14 @@ class User < ApplicationRecord
   validates :name, presence: true
   validates :email, uniqueness: true
 
+  after_create :assign_language
+
   has_many :lead_teams, :class_name => 'Team', :foreign_key => 'lead_id'
+  has_and_belongs_to_many :languages
   has_and_belongs_to_many :teams, join_table: 'teams_users'
+
+  private
+    def assign_languages
+      self.languages << Language.first
+    end
 end
