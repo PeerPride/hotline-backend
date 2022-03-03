@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_03_03_224502) do
+ActiveRecord::Schema[7.0].define(version: 2022_03_03_230739) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -89,6 +89,22 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_03_224502) do
     t.string "status", default: "Incoming"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "incoming_lines", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.string "number"
+    t.boolean "is_active", default: true
+    t.text "phone_greeting_message"
+    t.text "text_greeting_message"
+    t.string "greeting_audio"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "incoming_lines_languages", id: false, force: :cascade do |t|
+    t.uuid "incoming_line_id"
+    t.uuid "language_id"
   end
 
   create_table "jwt_denylist", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
