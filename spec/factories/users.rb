@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :user, class: User do
     name { Faker::Name.unique.name }
     name { Faker::Name.first_name }
