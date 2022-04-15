@@ -17,6 +17,14 @@ class User < ApplicationRecord
   has_and_belongs_to_many :languages
   has_and_belongs_to_many :teams, join_table: 'teams_users'
 
+  def go_on_call
+    OnCallManager.put_on_call(self, 'Phone', self.languages.first) #temporary
+  end
+
+  def go_off_call()
+    OnCallManager.take_off_call(self, 'Phone', self.languages.first) #temporary
+  end
+
   private
     def assign_languages
       self.languages << Language.first

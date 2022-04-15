@@ -5,5 +5,3 @@ Redis.current = Redis.new(
   port: ENV['REDIS_PORT'],
   db: ENV['REDIS_URL']
 )
-
-Rails.cache.write(:online_users, [])
