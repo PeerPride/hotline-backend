@@ -1,22 +1,24 @@
 # frozen_string_literal: true
 
 class AutomatedIntelligentRouter
-  @operator_stack
-  @weighted_operators
-  @conversation
+  @@operator_stack = []
+  @@weighted_operators = []
+  @@conversation = nil
 
   def initialize(conversation)
-    @operator_stack = self.create_operator_stack
-    if conversation.is_a? String
-      @conversation = Conversation.find(conversation)
-    elsif conversation.is_a? Conversation
-      @conversation = conversation
-    else
-      raise StandardError.new "Not a conversation or conversation ID"
+    if conversation.is_a? Conversation
+      @@conversation = conversation
+    elsif conversation.is_a? String
+      @@conversation = Conversation.find(conversation)
     end
+
+    @@operator_stack = Rails.cache.fetch("conversation_#{conversation.id}_operators", expires_in: 10.minutes) do
+      self.create_operator_stack
+    end
+
   end
 
-  def recommend_operator
+  def recommend_operators
     self.basic_filters
 
     self.setup_weighted_operators

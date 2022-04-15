@@ -1,5 +1,13 @@
 version: "3.9"
 services:
+  cache:
+    image: redis:6.2-alpine
+    restart: always
+    ports:
+      - '6379:6379'
+    command: "redis-server --save 20 1 --loglevel warning --requirepass ${REDIS_PASSWORD}"
+    volumes:
+      - cache:/data
   db:
     image: postgres
     restart: always
@@ -21,7 +29,11 @@ services:
       - "3000:3000"
     depends_on:
       - db
+      - cache
     env_file:
       - .env
     environment:
       RAILS_ENV: development
+volumes:
+  cache:
+    driver: local

@@ -29,6 +29,10 @@ module HotlineBackend
 
     config.autoload_paths << "#{Rails.root}/lib"
 
+    Rails.application.configure do 
+      config.cache_store = :redis_cache_store, { url: ENV['REDIS_URL'], password: ENV['REDIS_PASSWORD'] }
+    end
+
     config.before_configuration do
       env_file = File.join(Rails.root, 'config', 'local_env.yml')
       if File.exist?(env_file)
