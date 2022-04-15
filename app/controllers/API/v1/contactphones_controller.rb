@@ -25,9 +25,10 @@ module API
       end
 
       private
-        def permitted_params
-          params.permit(:contact_id)
-        end
+
+      def permitted_params
+        params.permit(:contact_id)
+      end
     end
   end
 end

@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class IncomingLineTest < ActiveSupport::TestCase
   test 'Incoming Line requires a name' do

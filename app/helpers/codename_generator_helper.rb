@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # A codename is three words separated by hyphens
 module CodenameGeneratorHelper
   def generate_codename
@@ -8,7 +10,7 @@ module CodenameGeneratorHelper
     noun = ''
     loop do
       noun = RandomWord.nouns.next
-      break if (noun.include? "_") == false
+      break if (noun.include? '_') == false
     end
     components << noun
 

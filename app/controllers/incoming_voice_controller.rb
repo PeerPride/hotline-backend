@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class IncomingVoiceController < ApplicationController
   def conn
     convo = Conversation.find_by_provider_id(params[:cid])
-    if (convo.nil?)
+    if convo.nil?
       convo = Conversation.new
       convo.provider_id = params[:cid]
       convo.method = 'Phone'

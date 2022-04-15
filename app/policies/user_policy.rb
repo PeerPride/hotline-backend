@@ -4,23 +4,25 @@ class UserPolicy < ApplicationPolicy
   attr_reader :accessing_user, :target_user
 
   def initialize(accessing_user, target_user)
-    @accessingUser = accessing_user
-    @targetUser = target_user
+    super
+    @accessing_user = accessing_user
+    @target_user = target_user
   end
 
   def show?
-    puts @accessingUser.id
-    @accessingUser.id == @targetUser.id || @accessingUser.id == '9b8c18a9-94ac-48e7-be86-7cb2926e1fda'
-    #true
+    puts @accessing_user.id
+    @accessing_user.id == @target_user.id || @accessing_user.id == '9b8c18a9-94ac-48e7-be86-7cb2926e1fda'
+    # true
   end
 
   def update?
     # Simple test, only a user can update themselves
-    @accessingUser.id == @targetUser.id
+    @accessing_user.id == @target_user.id
   end
 
   class Scope < Scope
     def initialize(user, scope)
+      super
       @user = user
       @scope = scope
     end
@@ -34,6 +36,7 @@ class UserPolicy < ApplicationPolicy
     end
 
     private
-      attr_reader :user, :scope
+
+    attr_reader :user, :scope
   end
 end

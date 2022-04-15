@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class ContactTest < ActiveSupport::TestCase
   test 'Contact must have a codename' do
@@ -35,7 +37,7 @@ class ContactTest < ActiveSupport::TestCase
     cp1.save!
 
     c.destroy
-    assert_equal ContactPhone.where(:phone => '+5555555555').count, 0
+    assert_equal ContactPhone.where(phone: '+5555555555').count, 0
   end
 
   test 'Assigning first ContactPhone sets it as primary' do

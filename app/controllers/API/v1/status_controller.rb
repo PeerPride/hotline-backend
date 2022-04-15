@@ -4,12 +4,12 @@ module API
   module V1
     class StatusController < API::BaseController # :nodoc:
       def index
-        systemStatus = []
+        system_status = []
 
-        systemStatus[:telephonyClient] = !@telephonyClient.nil?
+        system_status[:telephonyClient] = !@telephonyClient.nil?
         # TODO: If false, then dig into errors
 
-        render json: systemStatus
+        render json: system_status
       end
     end
   end

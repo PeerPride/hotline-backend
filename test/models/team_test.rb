@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class TeamTest < ActiveSupport::TestCase
   test 'Team requires a name' do
@@ -21,10 +23,10 @@ class TeamTest < ActiveSupport::TestCase
   end
 
   test 'Assigning a team member to lead removes from team members' do
-    t = Team.where(:name => "Team 3!").first
+    t = Team.where(name: 'Team 3!').first
 
-    #Team 3 lead is two, members are one and four
-    new_lead = User.where(:name => 'First User').first
+    # Team 3 lead is two, members are one and four
+    new_lead = User.where(name: 'First User').first
     t.lead = new_lead
     t.save
 
@@ -32,12 +34,10 @@ class TeamTest < ActiveSupport::TestCase
   end
 
   test 'Teams with 0 members are not considered active' do
-    assert_not Team.where(:name => 'A Second Team').first.is_active?
+    assert_not Team.where(name: 'A Second Team').first.active?
   end
 
   test 'Teams with 1 or more members are considered active' do
-    assert Team.where(:name => 'Team 3!').first.is_active?
+    assert Team.where(name: 'Team 3!').first.active?
   end
-
-
 end

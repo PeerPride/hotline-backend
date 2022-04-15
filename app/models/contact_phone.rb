@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ContactPhone < ApplicationRecord
   validates :phone, presence: true, uniqueness: true
 
@@ -9,14 +11,14 @@ class ContactPhone < ApplicationRecord
   has_many :conversations
 
   private
-    def update_primary
-      return if self.destroyed?
-      self.contact.update_primary_phone
 
-      if self.contact_id_changed?
-        Contact.where(:id => self.contact_id_was).update_primary_phone
-      end
+  def update_primary
+    return if destroyed?
 
-      self.reload
-    end
+    contact.update_primary_phone
+
+    Contact.where(id: contact_id_was).update_primary_phone if contact_id_changed?
+
+    reload
+  end
 end

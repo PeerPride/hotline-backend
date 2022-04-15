@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class LanguageTest < ActiveSupport::TestCase
   test 'Language requires a name' do
@@ -27,5 +29,4 @@ class LanguageTest < ActiveSupport::TestCase
     l2.name = 'English'
     assert_not l2.save
   end
-
 end

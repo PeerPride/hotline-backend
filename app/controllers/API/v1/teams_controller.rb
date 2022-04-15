@@ -4,7 +4,7 @@ module API
   module V1
     class TeamsController < API::BaseController # :nodoc:
       def index
-        #render json: TeamPolicy::Scope.new(current_user, Team.all).resolve
+        # render json: TeamPolicy::Scope.new(current_user, Team.all).resolve
         render jsonapi: Team.all, include: [:members]
       end
 
@@ -16,7 +16,7 @@ module API
 
       def update
         team = Team.find(params[:id])
-        #TODO
+        # TODO
         render_jsonapi_response(team)
       end
 

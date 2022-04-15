@@ -1,6 +1,8 @@
-require_relative "boot"
+# frozen_string_literal: true
 
-require "rails/all"
+require_relative 'boot'
+
+require 'rails/all'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -29,7 +31,7 @@ module HotlineBackend
 
     config.autoload_paths << "#{Rails.root}/lib"
 
-    Rails.application.configure do 
+    Rails.application.configure do
       config.cache_store = :redis_cache_store, { url: ENV['REDIS_URL'], password: ENV['REDIS_PASSWORD'] }
     end
 
@@ -85,6 +87,4 @@ end
 #     # Skip views, helpers and assets when generating a new resource.
 #     config.api_only = true
 
-    
 # end
-

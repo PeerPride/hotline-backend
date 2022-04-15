@@ -23,7 +23,7 @@ Rails.application.routes.draw do
       resources :users
       resources :teams
       resources :contacts do
-        member do 
+        member do
           patch :block
           patch :unblock
         end

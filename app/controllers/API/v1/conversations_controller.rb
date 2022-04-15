@@ -25,9 +25,10 @@ module API
       end
 
       private
-        def permitted_params
-          params.permit(:notes)
-        end
+
+      def permitted_params
+        params.permit(:notes)
+      end
     end
   end
 end

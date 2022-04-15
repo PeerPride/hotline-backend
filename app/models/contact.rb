@@ -1,6 +1,8 @@
-include CodenameGeneratorHelper
+# frozen_string_literal: true
 
 class Contact < ApplicationRecord
+  include CodenameGeneratorHelper
+
   validates :codename, presence: true, uniqueness: { case_insensitive: false }
 
   before_validation :set_codename, on: [:create]
@@ -9,29 +11,30 @@ class Contact < ApplicationRecord
   has_many :conversations
 
   def primary_phone
-    self.contact_phones.where(:is_primary => true)
+    contact_phones.where(is_primary: true)
   end
 
   def update_primary_phone
-    return if self.destroyed?
-    if self.primary_phone.empty?
-      new_primary = self.contact_phones.first
-      return if new_primary.nil?
+    return if destroyed?
 
-      new_primary.is_primary = true
-      new_primary.save
-    end
-    
+    return unless primary_phone.empty?
+
+    new_primary = contact_phones.first
+    return if new_primary.nil?
+
+    new_primary.is_primary = true
+    new_primary.save
   end
 
   private
-    def set_codename
-      cn = ''
-      loop do
-        cn = generate_codename
-        break if Contact::where(:codename => cn).count == 0
-      end
 
-      self.codename = cn
+  def set_codename
+    cn = ''
+    loop do
+      cn = generate_codename
+      break if Contact.where(codename: cn).count.zero?
     end
+
+    self.codename = cn
+  end
 end

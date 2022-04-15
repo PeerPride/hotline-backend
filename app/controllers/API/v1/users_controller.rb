@@ -13,7 +13,7 @@ module API
         if UserPolicy.new(current_user, user).show?
           render_jsonapi_response(User.find(params[:id]))
         else
-          render :json => 'no'
+          render json: 'no'
         end
       end
 
@@ -23,7 +23,7 @@ module API
         if UserPolicy.new(current_user, user).show?
           render_jsonapi_response(User.find(params[:id]))
         else
-          render :json => 'no'
+          render json: 'no'
         end
       end
     end

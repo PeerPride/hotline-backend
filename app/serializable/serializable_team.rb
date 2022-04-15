@@ -14,7 +14,6 @@ class SerializableTeam < JSONAPI::Serializable::Resource # :nodoc:😀
       { count: @object.members.count }
     end
   end
-  
 
   # link :self do
   #   @url_helpers.api_v1_user_url(@object.id)

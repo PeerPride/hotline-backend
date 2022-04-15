@@ -34,9 +34,10 @@ module API
       end
 
       private
-        def permitted_params
-          params.permit(:notes, :blocked)
-        end
+
+      def permitted_params
+        params.permit(:notes, :blocked)
+      end
     end
   end
 end

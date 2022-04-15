@@ -239,6 +239,10 @@ GEM
       unicode-display_width (>= 1.4.0, < 3.0)
     rubocop-ast (1.15.2)
       parser (>= 3.0.1.1)
+    rubocop-rails (2.14.2)
+      activesupport (>= 4.2.0)
+      rack (>= 1.1)
+      rubocop (>= 1.7.0, < 2.0)
     ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.5)
     spring (4.0.0)
@@ -285,6 +289,7 @@ DEPENDENCIES
   random-word (~> 1.3)
   redis (~> 4.0)
   rubocop
+  rubocop-rails
   spring
   twilio-ruby (~> 5.66.1)
   tzinfo-data

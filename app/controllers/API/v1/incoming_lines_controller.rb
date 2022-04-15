@@ -15,7 +15,7 @@ module API
 
       def update
         line = IncomingLine.find(params[:id])
-        #TODO
+        # TODO
         render_jsonapi_response(line)
       end
 
@@ -25,9 +25,7 @@ module API
         line.destroy
       end
 
-      def purchase
-
-      end
+      def purchase; end
     end
   end
 end

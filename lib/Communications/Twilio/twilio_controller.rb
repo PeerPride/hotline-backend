@@ -1,28 +1,26 @@
 # frozen_string_literal: true
 
 module Communications
+  @client = nil
   module Twilio
     class TwilioController
-      @@client
       def initialize
-        @@client = nil
-
         connect
 
         # self.test_connection
       end
 
       def connect
-        configParams = Setting.where(name: 'Phone Provider Settings').first.value
-        configParams = JSON.parse(configParams)
+        config_params = Setting.where(name: 'Phone Provider Settings').first.value
+        config_params = JSON.parse(config_params)
 
-        @@client = ::Twilio::REST::Client.new configParams['account_sid'],
-                                              configParams['auth_token']
+        @client = ::Twilio::REST::Client.new config_params['account_sid'],
+                                             config_params['auth_token']
       end
 
       def test_connection
         begin
-          @@client.api.accounts.list(limit: 1)
+          @client.api.accounts.list(limit: 1)
         rescue ::Twilio::REST::RestError => e
           raise InvalidCommsProviderException, "Twilio provider could not connect #{e}"
         end
@@ -30,9 +28,7 @@ module Communications
         true
       end
 
-      def client
-        @@client
-      end
+      attr_reader :client
     end
   end
 end

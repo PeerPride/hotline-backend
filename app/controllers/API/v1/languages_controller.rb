@@ -15,7 +15,7 @@ module API
 
       def update
         language = Language.find(params[:id])
-        #TODO
+        # TODO
         render_jsonapi_response(language)
       end
 

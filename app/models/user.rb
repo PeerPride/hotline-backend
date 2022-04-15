@@ -13,20 +13,21 @@ class User < ApplicationRecord
 
   after_create :assign_language
 
-  has_many :lead_teams, :class_name => 'Team', :foreign_key => 'lead_id'
+  has_many :lead_teams, class_name: 'Team', foreign_key: 'lead_id'
   has_and_belongs_to_many :languages
   has_and_belongs_to_many :teams, join_table: 'teams_users'
 
   def go_on_call
-    OnCallManager.put_on_call(self, 'Phone', self.languages.first) #temporary
+    OnCallManager.put_on_call(self, 'Phone', languages.first) # temporary
   end
 
-  def go_off_call()
-    OnCallManager.take_off_call(self, 'Phone', self.languages.first) #temporary
+  def go_off_call
+    OnCallManager.take_off_call(self, 'Phone', languages.first) # temporary
   end
 
   private
-    def assign_languages
-      self.languages << Language.first
-    end
+
+  def assign_languages
+    languages << Language.first
+  end
 end
