@@ -30,6 +30,16 @@ module Communications
         true
       end
 
+      def valid_request?(url, params, headers)
+        auth_token = @client.password
+
+        validator = ::Twilio::Security::RequestValidator.new(auth_token)
+
+        twilio_signature = headers['X-Twilio-Signature']
+
+        validator.validate(url, params, twilio_signature)
+      end
+
       attr_reader :client
     end
   end

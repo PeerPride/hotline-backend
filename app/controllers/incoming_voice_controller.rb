@@ -7,20 +7,21 @@ class IncomingVoiceController < ApplicationController
 
   before_action :check_incoming_line
   before_action :check_provider_id
+  before_action :validate_with_provider
   skip_before_action :verify_authenticity_token
 
   def incoming
-    convo = Conversation.find_by_provider_id(params[:cid])
+    convo = Conversation.find_by_provider_id(params[:CallSid])
     if convo.nil?
       convo = Conversation.new
-      convo.provider_id = params[:cid]
+      convo.provider_id = params[:CallSid]
       convo.method = 'Phone'
       convo.status = 'Incoming'
       convo.incoming_line = @incoming_line
       convo.save!
     end
 
-    voiceResponse = Twilio::TwiML::VoiceResponse.new do |response|
+    voice_response = Twilio::TwiML::VoiceResponse.new do |response|
       if @incoming_line.languages.length > 1
         response.gather numDigits: 1 do |_g|
           if @incoming_line.greeting_audio
@@ -41,7 +42,7 @@ class IncomingVoiceController < ApplicationController
     end.to_s
     convo.save!
 
-    render xml: voiceResponse
+    render xml: voice_response
 
     start_calling_operators(convo)
   end
@@ -66,6 +67,18 @@ class IncomingVoiceController < ApplicationController
   end
 
   def check_provider_id
-    Rails.logger.info "Incoming request with no provider_id " and head(403) and return if params[:cid].nil?
+    Rails.logger.info 'Incoming request with no provider_id ' and head(403) and return if params[:CallSid].nil?
+  end
+
+  def validate_with_provider
+    return true if Rails.env.development?
+
+    unless Communications::CommunicationsManager.instance.provider_object.valid_request?(request.original_url, params,
+                                                                                         request.headers) do
+             Rails.logger.info 'Incoming request not validated'
+             head(403)
+             nil
+           end
+    end
   end
 end

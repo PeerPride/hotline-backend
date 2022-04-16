@@ -66,3 +66,9 @@ Rails.application.configure do
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
 end
+Rails.application.config.to_prepare do
+  require_relative '../../lib/communications/communications_manager'
+
+  # TODO: Maybe make a Registry via ActiveSupport to do this? https://www.justinweiss.com/articles/better-globals-with-a-tiny-activesupport-module/
+  @telephony_client = Communications::CommunicationsManager.instance.provider_object
+end

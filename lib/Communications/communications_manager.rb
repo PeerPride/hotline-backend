@@ -2,26 +2,27 @@
 
 require 'singleton'
 
-# module Communications
-#   class CommunicationsManager
-#     include Singleton
-#     # Controller model for voice/sms/mms/etc
-#     @@communicationsProvider
+# :nodoc:
+module Communications
+  # Provides a singleton object representing the client of the provider.
+  class CommunicationsManager
+    include Singleton
+    # Controller model for voice/sms/mms/etc
+    @communications_rovider = nil
 
-#     def initialize
-#       @@communicationsProvider = nil
-#       begin
-#         providerName = Setting.where(name: 'Phone Provider').first.value
-#         obj = "Communications::#{providerName}::#{providerName}Controller".constantize
-#         @@communicationsProvider = obj.new
-#       rescue NameError => e
-#         raise InvalidCommsProviderException, "Phone provider does not exist #{e}"
-#       end
-#     end
+    def initialize
+      @communications_rovider = nil
+      begin
+        provider_name = Setting.where(name: 'Phone Provider').first.value
+        obj = "Communications::#{provider_name}::#{provider_name}Controller".constantize
+        @communications_provider = obj.new
+      rescue NameError => e
+        raise InvalidCommsProviderException, "Phone provider does not exist #{e}"
+      end
+    end
 
-#     def provider_object
-#       @@communicationsProvider
-#     end
-#   end
-
-# end
+    def provider_object
+      @communications_provider
+    end
+  end
+end
