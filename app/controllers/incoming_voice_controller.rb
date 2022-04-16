@@ -4,8 +4,9 @@
 class IncomingVoiceController < ApplicationController
   @incoming_line = nil
   before_action :check_incoming_line
+  skip_before_action :verify_authenticity_token
 
-  def conn
+  def incoming
     incoming_line = IncomingLine.find_by_number(params[:to])
 
     convo = Conversation.find_by_provider_id(params[:cid])
@@ -33,7 +34,7 @@ class IncomingVoiceController < ApplicationController
           r.redirect("/incoming_voice/language?cid=#{convo.id}")
         end
       else
-        convo.language_id = incoming_line.languages.first.id # FIXME: Conversation needs a language
+        convo.language_id = incoming_line.languages.first.id
         if incoming_line.greeting_audio
           response.play(loop: 1, url: incoming_line.greeting_audio)
         else
@@ -42,13 +43,13 @@ class IncomingVoiceController < ApplicationController
       end
     end.to_s
 
-    start_calling_operators(conversation)
+    start_calling_operators(convo)
   end
 
   private
 
-  def start_calling_operators(_conversation)
-    air = new AutomatedIntelligentRouter(convo)
+  def start_calling_operators(conversation)
+    air = AutomatedIntelligentRouter.new(conversation)
     operators = air.recommend_operators
 
     # TODO: Here's where we'll differentiate between round-robin and same-time. Example is round-robin.

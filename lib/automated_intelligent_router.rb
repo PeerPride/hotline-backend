@@ -24,7 +24,7 @@ class AutomatedIntelligentRouter
 
     setup_weighted_operators
 
-    weighted_fitlers
+    weighted_filters
 
     order_operators_by_weight
   end
@@ -33,6 +33,7 @@ class AutomatedIntelligentRouter
 
   def create_operator_stack
     # Who is currently "online"
+    User.all.pluck(:id)
   end
 
   def basic_filters

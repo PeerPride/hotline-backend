@@ -19,6 +19,8 @@ Rails.application.routes.draw do
                registrations: 'registrations'
              }
 
+  post :incoming_call, to: 'incoming_voice#incoming'
+
   namespace :api do
     namespace :v1 do
       resources :users
