@@ -1,4 +1,4 @@
 # frozen_string_literal: true
 
-class TagGroup < ApplicationRecord
+class TagGroup < ApplicationRecord # :nodoc:
 end

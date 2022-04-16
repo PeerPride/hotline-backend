@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# General non-app config settings
 class Setting < ApplicationRecord
   @valid_type_hints = %w[string json boolean phone email number]
 

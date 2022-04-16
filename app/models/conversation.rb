@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# A conversation happens via any of the methods available (phone, text, web, etc)
 class Conversation < ApplicationRecord
   @valid_statuses = ['Incoming', 'Language Selection', 'Pending Operator', 'Answered', 'Finished']
   @valid_methods = %w[Phone Text Web Signal WhatsApp]

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Allows items to be reorderable if they have an item_order property
 module Orderable
   extend ActiveSupport::Concern
 

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# performs routing services for a conversation
 class AutomatedIntelligentRouter
   @operator_stack = []
   @weighted_operators = []

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Handle incoming webhook callbacks from voice services
 class IncomingVoiceController < ApplicationController
   @incoming_line = nil
   before_action :check_incoming_line
@@ -32,7 +33,7 @@ class IncomingVoiceController < ApplicationController
           r.redirect("/incoming_voice/language?cid=#{convo.id}")
         end
       else
-        convo.language_id = incoming_line.languages.first.id #FIXME Conversation needs a language
+        convo.language_id = incoming_line.languages.first.id # FIXME: Conversation needs a language
         if incoming_line.greeting_audio
           response.play(loop: 1, url: incoming_line.greeting_audio)
         else
@@ -42,30 +43,24 @@ class IncomingVoiceController < ApplicationController
     end.to_s
 
     start_calling_operators(conversation)
-
   end
-
-  def Language
-    
-  end
-
 
   private
-  def start_calling_operators(conversation)
+
+  def start_calling_operators(_conversation)
     air = new AutomatedIntelligentRouter(convo)
     operators = air.recommend_operators
 
-    # TODO Here's where we'll differentiate between round-robin and same-time. Example is round-robin.
+    # TODO: Here's where we'll differentiate between round-robin and same-time. Example is round-robin.
   end
 
   def check_incoming_line
     @incoming_line = IncomingLine.find_by_number(params[:to])
 
     unless @incoming_line
-      #TODO Log something
+      Rails.logger.info "Incoming request with line #{params[:to]}"
       head(403)
-      return
+      nil
     end
   end
-
 end

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Central class to manage queues of users who are on call
 class OnCallManager
   ON_CALL_KEY_BASE = 'on_call'
 

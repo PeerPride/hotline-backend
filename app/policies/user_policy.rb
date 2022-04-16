@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# :nodoc:
 class UserPolicy < ApplicationPolicy
   attr_reader :accessing_user, :target_user
 
@@ -20,6 +21,7 @@ class UserPolicy < ApplicationPolicy
     @accessing_user.id == @target_user.id
   end
 
+  # :nodoc:
   class Scope < Scope
     def initialize(user, scope)
       super
@@ -32,6 +34,7 @@ class UserPolicy < ApplicationPolicy
         scope.all
       else
         # Where user is on team, etc, etc.
+        scope.first # junk, remove this!
       end
     end
 

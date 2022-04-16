@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# A Contact is someone who has used the service in some way
 class Contact < ApplicationRecord
   include CodenameGeneratorHelper
 

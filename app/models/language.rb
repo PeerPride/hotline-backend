@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Languages offered by lines and used by operators
 class Language < ApplicationRecord
   validates :name, presence: true, uniqueness: { case_sensitive: false }
 

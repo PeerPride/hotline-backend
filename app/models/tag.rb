@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
-class Tag < ApplicationRecord
+class Tag < ApplicationRecord # :nodoc:
   validates :name, presence: true
 end

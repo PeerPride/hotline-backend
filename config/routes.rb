@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/BlockLength
 Rails.application.routes.draw do
   resources :incoming_lines
   # devise_for :users
@@ -34,3 +35,4 @@ Rails.application.routes.draw do
     end
   end
 end
+# rubocop:enable Metrics/BlockLength

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class TagCategory < ApplicationRecord
+class TagCategory < ApplicationRecord # :nodoc:
   include Orderable
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }

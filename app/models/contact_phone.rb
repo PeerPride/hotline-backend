@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# A contact can have many phone numbers
 class ContactPhone < ApplicationRecord
   validates :phone, presence: true, uniqueness: true
 

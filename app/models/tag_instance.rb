@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class TagInstance < ApplicationRecord
+class TagInstance < ApplicationRecord # :nodoc:
   include Orderable
 
   belongs_to :tag, class_name: 'Tag'

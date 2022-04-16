@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
+# Provides Twilio methods
 module Communications
   @client = nil
+  # :nodoc:
   module Twilio
-    class TwilioController
+    class TwilioController # :nodoc:
       def initialize
         connect
 

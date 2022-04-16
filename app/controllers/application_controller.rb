@@ -13,6 +13,8 @@ class ApplicationController < ActionController::Base # :nodoc:
   end
 
   def json_request?
+    # rubocop:disable Layout/LineLength
     request.format.json? or (request.headers['Content-Type'] == 'application/json' and request.headers['Authorization'].present?)
+    # rubocop:enable Layout/LineLength
   end
 end
