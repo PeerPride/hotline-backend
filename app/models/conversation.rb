@@ -11,6 +11,7 @@ class Conversation < ApplicationRecord
 
   belongs_to :contact, optional: true
   belongs_to :contactphone, optional: true
+  belongs_to :conversation, optional: true
 
   before_save :calculate_length
 
