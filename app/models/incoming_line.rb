@@ -6,4 +6,5 @@ class IncomingLine < ApplicationRecord
   validates :name, presence: true, uniqueness: true
 
   has_and_belongs_to_many :languages
+  has_and_belongs_to_many :conversations
 end

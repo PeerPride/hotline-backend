@@ -3,20 +3,21 @@
 # Handle incoming webhook callbacks from voice services
 class IncomingVoiceController < ApplicationController
   @incoming_line = nil
+  @provider_id = nil
+
   before_action :check_incoming_line
+  before_action :check_provider_id
   skip_before_action :verify_authenticity_token
 
   def incoming
-    incoming_line = IncomingLine.find_by_number(params[:to])
-
     convo = Conversation.find_by_provider_id(params[:cid])
     if convo.nil?
       convo = Conversation.new
       convo.provider_id = params[:cid]
       convo.method = 'Phone'
       convo.status = 'Incoming'
-      convo.incoming_line = incoming_line
-      convo.save
+      convo.incoming_line = @incoming_line
+      convo.save!
     end
 
     # air = new AutomatedIntelligentRouter(convo)
@@ -24,24 +25,25 @@ class IncomingVoiceController < ApplicationController
     # operators = air.recommend_operators
 
     Twilio::TwiML::VoiceResponse.new do |response|
-      if incoming_line.languages.length > 1
+      if @incoming_line.languages.length > 1
         response.gather numDigits: 1 do |_g|
-          if incoming_line.greeting_audio
-            response.play(loop: 1, url: incoming_line.greeting_audio)
+          if @incoming_line.greeting_audio
+            response.play(loop: 1, url: @incoming_line.greeting_audio)
           else
-            response.say(message: incoming_line.phone_greeting_message)
+            response.say(message: @incoming_line.phone_greeting_message)
           end
           r.redirect("/incoming_voice/language?cid=#{convo.id}")
         end
       else
-        convo.language_id = incoming_line.languages.first.id
-        if incoming_line.greeting_audio
-          response.play(loop: 1, url: incoming_line.greeting_audio)
+        convo.language_id = @incoming_line.languages.first.id
+        if @incoming_line.greeting_audio
+          response.play(loop: 1, url: @incoming_line.greeting_audio)
         else
-          response.say(message: incoming_line.phone_greeting_message)
+          response.say(message: @incoming_line.phone_greeting_message)
         end
       end
     end.to_s
+    convo.save!
 
     start_calling_operators(convo)
   end
@@ -63,5 +65,9 @@ class IncomingVoiceController < ApplicationController
       head(403)
       nil
     end
+  end
+
+  def check_provider_id
+    Rails.logger.info "Incoming request with no provider_id " and head(403) and return if params[:cid].nil?
   end
 end
