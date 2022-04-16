@@ -40,6 +40,10 @@ module Communications
         validator.validate(url, params, twilio_signature)
       end
 
+      def conversation_id_param
+        :CallSid
+      end
+
       attr_reader :client
     end
   end

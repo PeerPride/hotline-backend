@@ -67,7 +67,8 @@ class IncomingVoiceController < ApplicationController
   end
 
   def check_provider_id
-    Rails.logger.info 'Incoming request with no provider_id ' and head(403) and return if params[:CallSid].nil?
+    provider_id_param = Communications::CommunicationsManager.instance.provider_object.conversation_id_param
+    Rails.logger.info 'Incoming request with no provider_id ' and head(403) and return if params[provider_id_param].nil?
   end
 
   def validate_with_provider
