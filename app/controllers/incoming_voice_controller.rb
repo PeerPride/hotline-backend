@@ -20,11 +20,7 @@ class IncomingVoiceController < ApplicationController
       convo.save!
     end
 
-    # air = new AutomatedIntelligentRouter(convo)
-
-    # operators = air.recommend_operators
-
-    Twilio::TwiML::VoiceResponse.new do |response|
+    voiceResponse = Twilio::TwiML::VoiceResponse.new do |response|
       if @incoming_line.languages.length > 1
         response.gather numDigits: 1 do |_g|
           if @incoming_line.greeting_audio
@@ -44,6 +40,8 @@ class IncomingVoiceController < ApplicationController
       end
     end.to_s
     convo.save!
+
+    render xml: voiceResponse
 
     start_calling_operators(convo)
   end
