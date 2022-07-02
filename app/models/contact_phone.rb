@@ -2,7 +2,11 @@
 
 # A contact can have many phone numbers
 class ContactPhone < ApplicationRecord
-  validates :phone, presence: true, uniqueness: true
+  validates :phone, phone: true, uniqueness: true
+
+  def phone_number=(val)
+    write_attribute(:phone_number, Phonelib.parse(val).international)
+  end
 
   after_destroy :update_primary
   after_save :update_primary
@@ -10,6 +14,8 @@ class ContactPhone < ApplicationRecord
   belongs_to :contact
 
   has_many :conversations
+
+  
 
   private
 
