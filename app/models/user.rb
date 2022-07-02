@@ -9,8 +9,13 @@ class User < ApplicationRecord
 
   validates :name, presence: true
   validates :email, uniqueness: true
+  validates :phone_number, phone: true, allow_blank: true
 
   after_create :assign_language
+
+  def phone_number=(val)
+    write_attribute(:phone_number, Phonelib.parse(val).international)
+  end
 
   has_many :lead_teams, class_name: 'Team', foreign_key: 'lead_id'
   has_and_belongs_to_many :languages

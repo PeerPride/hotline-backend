@@ -59,6 +59,7 @@ gem 'jsonapi-rails'
 
 # Phone stuff
 gem 'twilio-ruby', '~> 5.66.1'
+gem 'phonelib'
 
 # Access control
 gem 'pundit'
