@@ -14,6 +14,8 @@ class Conversation < ApplicationRecord
   belongs_to :conversation, optional: true
   belongs_to :incoming_line
 
+  has_many :conversation_participant
+
   before_save :calculate_length
 
   def finish

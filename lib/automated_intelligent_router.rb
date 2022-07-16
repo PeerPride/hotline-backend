@@ -34,7 +34,6 @@ class AutomatedIntelligentRouter
   def basic_filters
     not_in_a_conversation
     match_language_and_method
-    not_a_group_participant
     not_in_cooldown_period
   end
 
@@ -42,14 +41,13 @@ class AutomatedIntelligentRouter
 
   # region Basic Filters
   # Basic filters modify @operator_stack by hard excluding
-  def not_in_a_conversation; end
+  def not_in_a_conversation
+    ops_in_conversation = ConversationParticipant.active.pluck(:user_id)
+    @operator_stack = @operator_stack.except!()
+  end
 
   def match_language_and_method
     @operator_stack = OnCallManager.on_call_for(@conversation.method, @conversation.language)
-  end
-
-  def not_a_group_participant
-    
   end
 
   def not_in_cooldown_period
