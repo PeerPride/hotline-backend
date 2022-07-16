@@ -15,7 +15,7 @@ class AutomatedIntelligentRouter
     end
 
     @operator_stack = Rails.cache.fetch("conversation_#{conversation.id}_operators", expires_in: 10.minutes) do
-      create_operator_stack
+      recommend_operators
     end
   end
 
@@ -31,15 +31,9 @@ class AutomatedIntelligentRouter
 
   private
 
-  def create_operator_stack
-    # Who is currently "online"
-    User.all.pluck(:id)
-  end
-
   def basic_filters
     not_in_a_conversation
-    match_language
-    on_call_for_method
+    match_language_and_method
     not_a_group_participant
     not_in_cooldown_period
   end
@@ -50,11 +44,13 @@ class AutomatedIntelligentRouter
   # Basic filters modify @operator_stack by hard excluding
   def not_in_a_conversation; end
 
-  def match_language; end
+  def match_language_and_method
+    @operator_stack = OnCallManager.on_call_for(@conversation.method, @conversation.language)
+  end
 
-  def on_call_for_method; end
-
-  def not_a_group_participant; end
+  def not_a_group_participant
+    
+  end
 
   def not_in_cooldown_period
   end

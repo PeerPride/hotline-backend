@@ -28,11 +28,11 @@ module API
       end
 
       def oncall
-        if params[:language_id].present?
-          render_json_api_response(OnCallManager.on_call_for_language(Language.find(params[:language_id])))
-        else
-          render_json_api_response(OnCallManager.on_call_for_language)
-        end
+        # if params[:language_id].present?
+        #   render_json_api_response(OnCallManager.on_call_for(Language.find(params[:language_id])))
+        # else
+        #   render_json_api_response(OnCallManager.on_call_for_language)
+        # end
       end
     end
   end

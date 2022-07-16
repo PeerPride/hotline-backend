@@ -24,8 +24,8 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :users do
-        get :oncall
-        get 'oncall/:language_id'
+        #get :oncall
+        #get 'oncall/:language_id' => 'oncall'
       end
       resources :teams
       resources :contacts do
