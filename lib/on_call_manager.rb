@@ -30,4 +30,30 @@ class OnCallManager
       Rails.cache.write(key_values.to_json)
     end
   end
+
+  def self.on_call_for_language(language = nil)
+    users = []
+    
+    if !language.nil?
+      Language.all.each do |l|
+        key_name = key_name = "#{ON_CALL_KEY_BASE}_#{language.name.downcase}"
+        key_values = Redis.cache.read(key_name)
+        if !key_values.nil?
+          key_values.each do |u|
+            users << User.find(u)
+          end
+        end
+      end
+    else
+      key_name = "#{ON_CALL_KEY_BASE}_#{language.name.downcase}"
+      key_values = Redis.cache.read(key_name)
+      if !key_values.nil?
+        key_values.each do |u|
+          users << User.find(u)
+        end
+      end
+    end
+
+    users
+  end
 end
