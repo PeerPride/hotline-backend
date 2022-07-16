@@ -26,6 +26,7 @@ Rails.application.routes.draw do
       resources :users do
         get :oncall
         get 'oncall/:language_id'
+      end
       resources :teams
       resources :contacts do
         member do
