@@ -25,6 +25,15 @@ module API
         else
           render json: 'no'
         end
+
+        def oncall
+          if params[:language_id].present?index
+            render json:
+          else
+
+          end
+          
+        end
       end
     end
   end
